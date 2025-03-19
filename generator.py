@@ -1,6 +1,10 @@
 import time
 import re
 import random
+import os
+import subprocess
+
+print('Генератор ключей для ChatGPT\n-----------------------------------\n')
 
 class CryptographicState:
     def __init__(self):
@@ -52,14 +56,28 @@ def generate_openai_key(state):
         state.buffer[i] = modular_character_expansion(state, next_cryptographic_state(state))
     state.buffer[52] = '\0'
 
-def update_ai_bot_file(api_key, file_path='ai_bot.py'):
+def update_ai_bot_file(api_key, api_id, api_hash, file_path='ai_bot.py'):
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
+    
     # Заменяем строку с пустым ключом
     content = re.sub(r"openai\.api_key\s*=\s*''", f"openai.api_key = '{api_key}'", content)
+    content = re.sub(r"api_id\s*=\s*''", f"api_id = '{api_id}'", content)
+    content = re.sub(r"api_hash\s*=\s*''", f"api_hash = '{api_hash}'", content)
+    
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f"[+] Ключ {api_key} успешно вставлен в {file_path}")
+    
+    print(f"[+] Ключ {api_key} и параметры API успешно вставлены в {file_path}")
+
+def create_bat_file():
+    bat_content = """@echo off
+python client.py
+pause
+"""
+    with open("run_client.bat", "w", encoding="utf-8") as bat_file:
+        bat_file.write(bat_content)
+    print("[+] run_client.bat успешно создан!")
 
 def main():
     state = CryptographicState()
@@ -74,7 +92,18 @@ def main():
 
     print("\n-----------------------------\n".join(keys))
     selected_key = random.choice(keys)
-    update_ai_bot_file(selected_key)
+    
+    # Запрашиваем у пользователя api_id и api_hash
+    api_id = input("Введите ваш api_id для Telegram API: ")
+    api_hash = input("Введите ваш api_hash для Telegram API: ")
+    
+    update_ai_bot_file(selected_key, api_id, api_hash)
+    
+    # Создание bat файла
+    create_bat_file()
+    
+    # Запуск .bat файла
+    subprocess.run(["run_client.bat"], shell=True)
 
 if __name__ == "__main__":
     main()

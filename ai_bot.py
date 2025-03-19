@@ -9,7 +9,7 @@ import random
 #                          ЧАСТЬ КОДА КОТОРУЮ НУЖНО НАСТРОИТЬ                         #
 api_id = '' #ВАШ api_id из Telegram API
 api_hash = '' #ВАШ api_hash из Telegram API
-openai.api_key = '' #сгенерировать ключ через generator.py
+openai.api_key = 'sk-ojgP2ZkdKBe5eLel2xGhT3BlenkAIwLYt0FI3YduHWtuZGL4T' #сгенерировать ключ через generator.py
 prompt = '' #промпт по которому будет отвечать ИИ
 #                                                                                                                                             #
 #######################################################
