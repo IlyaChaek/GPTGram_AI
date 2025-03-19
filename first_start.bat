@@ -15,7 +15,7 @@ python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo Python not found. Downloading and installing...
 
-    powershell -Command "Invoke-WebRequest -Uri !PYTHON_URL! -OutFile python-installer.exe"
+    powershell -Command "Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile 'python-installer.exe'"
 
     python-installer.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
 
