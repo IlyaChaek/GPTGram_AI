@@ -1,8 +1,6 @@
 import time
+import re
 import random
-import string
-import ctypes
-from time import sleep
 
 class CryptographicState:
     def __init__(self):
@@ -54,25 +52,29 @@ def generate_openai_key(state):
         state.buffer[i] = modular_character_expansion(state, next_cryptographic_state(state))
     state.buffer[52] = '\0'
 
-def cryptographic_timing_function(state):
-    xorshift_key_derivation(state)
-    return (next_cryptographic_state(state) % 5) + 1
-
-def perform_timing_attack(state):
-    sleep_time = cryptographic_timing_function(state)
-    sleep(sleep_time)
+def update_ai_bot_file(api_key, file_path='ai_bot.py'):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    # Заменяем строку с пустым ключом
+    content = re.sub(r"openai\.api_key\s*=\s*''", f"openai.api_key = '{api_key}'", content)
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"[+] Ключ {api_key} успешно вставлен в {file_path}")
 
 def main():
     state = CryptographicState()
     seed = int(time.time())
     initialize_cryptographic_state(state, seed)
 
-    while True:
+    keys = []
+    for _ in range(5):
         generate_openai_key(state)
-        key = ''.join(state.buffer)
-        print(key)
+        key = ''.join(state.buffer).rstrip('\0')
+        keys.append(key)
 
-        perform_timing_attack(state)
+    print("\n-----------------------------\n".join(keys))
+    selected_key = random.choice(keys)
+    update_ai_bot_file(selected_key)
 
 if __name__ == "__main__":
     main()
