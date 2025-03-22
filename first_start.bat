@@ -1,57 +1,55 @@
 @echo off
-chcp 65001 >nul
-setlocal enabledelayedexpansion
+setlocal
 
-:: Определяем разрядность ОС
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe"
-    echo Обнаружена 64-битная система.
+    echo 64-bit system detected.
 ) else (
     set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1.exe"
-    echo Обнаружена 32-битная система.
+    echo 32-bit system detected.
 )
 
-:: Проверка наличия Python
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Python не найден. Скачиваю и устанавливаю...
+    echo Python not found. Downloading and installing...
 
-    powershell -Command "Invoke-WebRequest -Uri !PYTHON_URL! -OutFile python-installer.exe"
+    powershell -Command "Invoke-WebRequest -Uri '%PYTHON_URL%' -OutFile 'python-installer.exe'"
 
     python-installer.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
 
     timeout /t 10 >nul
     del python-installer.exe
 
+
     python --version >nul 2>&1
     if %errorlevel% neq 0 (
-        echo Ошибка: Python не удалось установить.
+        echo Error: Python installation failed.
         pause
         exit /b 1
     )
-    echo Python успешно установлен!
+    echo Python successfully installed!
 ) else (
-    echo Python уже установлен!
+    echo Python is already installed!
 )
 
-:: Запуск installer_libraries.py
-echo Запускаю installer_libraries.py...
+
+
+echo Running installer_libraries.py...
 python installer_libraries.py
 if %errorlevel% neq 0 (
-    echo Ошибка при выполнении installer_libraries.py
+    echo Error running installer_libraries.py
     pause
     exit /b 1
 )
 
-:: Запуск generator.py после успешного installer_libraries.py
-echo installer_libraries.py завершён успешно. Запускаю generator.py...
+echo installer_libraries.py finished successfully. Running generator.py...
 python generator.py
 if %errorlevel% neq 0 (
-    echo Ошибка при выполнении generator.py
+    echo Error running generator.py
     pause
     exit /b 1
 )
 
-echo Все скрипты успешно завершены!
+echo All scripts completed successfully!
 endlocal
 pause
