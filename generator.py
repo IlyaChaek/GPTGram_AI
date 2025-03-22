@@ -4,6 +4,10 @@ import random
 import os
 import subprocess
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 print('Генератор ключей для ChatGPT\n-----------------------------------\n')
 
 class CryptographicState:
@@ -71,7 +75,11 @@ def update_ai_bot_file(api_key, api_id, api_hash, file_path='ai_bot.py'):
     print(f"[+] Ключ {api_key} и параметры API успешно вставлены в {file_path}")
 
 def create_bat_file():
+<<<<<<< HEAD
+    bat_content = """@echo GPTGram by MOCKBA_123, Thanks for Using my Project
+=======
     bat_content = """@echo off
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 python client.py
 pause
 """
@@ -93,7 +101,11 @@ def main():
     print("\n-----------------------------\n".join(keys))
     selected_key = random.choice(keys)
     
+<<<<<<< HEAD
+    os.system('cls' if os.name == 'nt' else 'clear')
+=======
     # Запрашиваем у пользователя api_id и api_hash
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
     api_id = input("Введите ваш api_id для Telegram API: ")
     api_hash = input("Введите ваш api_hash для Telegram API: ")
     

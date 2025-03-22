@@ -31,3 +31,6 @@ googletrans
 gevent
 python-dotenv
 asyncio
+vosk
+soundfile
+customtkinter

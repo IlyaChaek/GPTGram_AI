@@ -1,7 +1,10 @@
 @echo off
 setlocal
 
+<<<<<<< HEAD
+=======
 :: Define the Python installation URL based on system architecture
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe"
     echo 64-bit system detected.
@@ -10,7 +13,10 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     echo 32-bit system detected.
 )
 
+<<<<<<< HEAD
+=======
 :: Check if Python is already installed
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo Python not found. Downloading and installing...
@@ -22,7 +28,11 @@ if %errorlevel% neq 0 (
     timeout /t 10 >nul
     del python-installer.exe
 
+<<<<<<< HEAD
+
+=======
     :: Check if Python was installed successfully
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
     python --version >nul 2>&1
     if %errorlevel% neq 0 (
         echo Error: Python installation failed.
@@ -34,7 +44,12 @@ if %errorlevel% neq 0 (
     echo Python is already installed!
 )
 
+<<<<<<< HEAD
+
+
+=======
 :: Run installer_libraries.py
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 echo Running installer_libraries.py...
 python installer_libraries.py
 if %errorlevel% neq 0 (
@@ -43,7 +58,10 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+<<<<<<< HEAD
+=======
 :: Run generator.py after successful installer_libraries.py
+>>>>>>> d41a5c2b0463ca3c15b09ff4dac1e0fabf35b62d
 echo installer_libraries.py finished successfully. Running generator.py...
 python generator.py
 if %errorlevel% neq 0 (
