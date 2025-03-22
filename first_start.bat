@@ -1,6 +1,7 @@
 @echo off
 setlocal
 
+:: Определяем разрядность ОС
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe"
     echo 64-bit system detected.
@@ -9,6 +10,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     echo 32-bit system detected.
 )
 
+:: Проверка наличия Python
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo Python not found. Downloading and installing...
@@ -21,6 +23,7 @@ if %errorlevel% neq 0 (
     del python-installer.exe
 
 
+    :: Check if Python was installed successfully
     python --version >nul 2>&1
     if %errorlevel% neq 0 (
         echo Error: Python installation failed.
@@ -32,9 +35,8 @@ if %errorlevel% neq 0 (
     echo Python is already installed!
 )
 
-
-
-echo Running installer_libraries.py...
+:: Запуск installer_libraries.py
+echo Запускаю installer_libraries.py...
 python installer_libraries.py
 if %errorlevel% neq 0 (
     echo Error running installer_libraries.py
@@ -42,7 +44,8 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-echo installer_libraries.py finished successfully. Running generator.py...
+:: Запуск generator.py после успешного installer_libraries.py
+echo installer_libraries.py завершён успешно. Запускаю generator.py...
 python generator.py
 if %errorlevel% neq 0 (
     echo Error running generator.py
