@@ -11,7 +11,15 @@ print('\n--------------------------------\nВнизу логи ai_script.py\n---
 api_id = ''
 api_hash = ''
 session_name = 'user_session'
-client_tg = TelegramClient(session_name, api_id, api_hash)
+
+client_tg = TelegramClient(
+    session_name,
+    api_id,
+    api_hash,
+    system_version='',
+    device_model='',
+    app_version=''
+)
 
 openai.api_key = ''
 openai.api_base = "http://127.0.0.1:1337/"
