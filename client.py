@@ -247,7 +247,7 @@ class TelegramBotApp:
     def show_history(self):
         history_window = ctk.CTkToplevel(self.root)
         history_window.title("История общения")
-        history_window.geometry("400x400")
+        history_window.geometry("600x600")
         history_window.configure(bg=self.theme_data["bg_color"])
 
         contact_listbox = tk.Listbox(history_window, height=15, width=40,
