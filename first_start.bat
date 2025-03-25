@@ -34,6 +34,16 @@ if %errorlevel% neq 0 (
     echo Python is already installed!
 )
 
+:: Install pkg_resources before running installer_libraries.py
+echo Installing pkg_resources...
+python -m pip install --upgrade setuptools >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Error installing pkg_resources.
+    pause
+    exit /b 1
+)
+echo pkg_resources installed successfully!
+
 :: Run installer_libraries.py
 echo Running installer_libraries.py...
 python installer_libraries.py
