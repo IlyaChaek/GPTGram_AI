@@ -62,21 +62,6 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: Create a shortcut on the Desktop
-set "SCRIPT_PATH=%~dp0first_start.bat"
-set "SHORTCUT_PATH=%USERPROFILE%\Desktop\GPTGram.lnk"
-set "ICON_PATH=%~dp0icon.ico"
-
-echo Creating shortcut on the Desktop...
-powershell -Command "$s=(New-Object -COM WScript.Shell).CreateShortcut('%SHORTCUT_PATH%'); $s.TargetPath='%SCRIPT_PATH%'; $s.IconLocation='%ICON_PATH%'; $s.Save()"
-if %errorlevel% neq 0 (
-    echo Error creating shortcut.
-    pause
-    exit /b 1
-)
-
-echo Shortcut 'GPTGram' created successfully!
-
 echo All scripts completed successfully!
 endlocal
 pause
